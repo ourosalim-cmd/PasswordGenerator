@@ -20,9 +20,11 @@ var capitalS;
    lowerCaseC =confirm("Do you want your password to contain lower case character?");
    capitalC = confirm("Do you want your password to contain capital character?");
 
+  
+
    if (capitalC == true)
    {
-      capitalS = 1;
+      capitalS = 2;
       passwordLength = passwordLength-1;
       capitalC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
      c = generate(capitalC, capitalS);
@@ -33,17 +35,17 @@ var capitalS;
    
    if(specialC===true)
    {
-      specialS= 1; 
-      passwordLength = passwordLength-1;
+      specialS= 2; 
+      passwordLength = passwordLength-2;
       specialC = "\\\"\!\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\]\^\_\`\{\|\}\~";
-      //s = generate(specialC, specialS);
+      s = generate(specialC, specialS);
       console.log("s is = " + generate(specialC, specialS));
       //alert ("after special " + passwordLength);
    }
    
    if (numberC == true)
    {
-      numberS= 3;
+      numberS= 2;
       passwordLength = passwordLength-3;
       numberC = "0123456789";
       n = generate(numberC, numberS);
@@ -67,18 +69,26 @@ var str = "";
 
 function generate (myString, aNumber)
 {
-   
+   str = "";
    //Math.floor(Math.random() * myString.length);
    for (i = 0; i<aNumber; i++)
    {
-      var rNumber = Math.floor(Math.random() * myString.length) -1;
+      var rNumber = Math.floor(Math.random() * myString.length);
       str = str + myString[rNumber];
-      console.log( " my rNumber = " + rNumber);
+
    }
-   return;// str;
+   return str;
 }
 
-//alert("Your password is " + c+l+n+s);
-
-console.log("n is = " + n);
+if(specialC && numberC && lowerCaseC && capitalC == false)
+{
+   alert("You must select at least one character type");
+   
+}
+else
+{
+   alert("Your password is " + c+l+n+s);
+   console.log(s);
+}
+//console.log("n is = " + n);
 
