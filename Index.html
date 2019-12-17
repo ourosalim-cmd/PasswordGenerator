@@ -5,11 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Password generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="PassWordGenerator.css">
 </head>
 <body>
-    <script src="PassWordgenerator.js">
+    <div class="container" id="myContainer">
+        <h1>Password Generator</h1>
+        <div class="row rounded shadow p-3 mb-5 bg-white rounded" id="level2">
+            <div class="col-12">
+                <h2>Generate Password</h2>
 
-    </script>
-    
+                <div class="row" id="level3">
+                    <div class="col-12">
+                        <div class="row rounded" id="level4">
+                            <div class="col-12">
+                                <p>Your Secure Password is:</p>
+                                <p id="passWord"></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="buttonsRow">
+                    <div class="col-3 rounded-pill" id="mybuttonL">
+                        <button id="myButton">Generate Password</button> 
+                    </div>
+                    <div class="col-6 invisible"></div>
+                    <div class="col-3 rounded-pill" id="mybuttonR">
+                        <button id="copyPass">Copy to clipboard</button>
+                    </div>
+                </div>
+                <div class="row" id="lastRow">
+                    <div class="col-3">                        
+                        <input type="range" class="custom-range" min="0" max="128" id="customRange2">
+                        <label for="customRange2" id="slider">Password Length: <span id="sliderValue"></span> </label>                       
+                    </div>
+                    <div class="col-2 checkBoxCol">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                            <label class="custom-control-label" for="customCheck1">Special character</label>
+                        </div>
+                    </div>
+                    <div class="col-2 checkBoxCol">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2">
+                            <label class="custom-control-label" for="customCheck2">Number: 0-9</label>
+                        </div>
+                    </div>
+
+                    <div class="col-2 checkBoxCol">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck3">
+                            <label class="custom-control-label" for="customCheck3">Lower Case letters</label>
+                        </div>
+                    </div>
+
+                    <div class="col-2 checkBoxCol">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck4">
+                            <label class="custom-control-label" for="customCheck4">Upper Case letters</label>
+                        </div>
+                    </div>
+
+                </div>
+
+    </div>
+    <script src="PassWordgenerator.js"></script> 
 </body>
 </html>
