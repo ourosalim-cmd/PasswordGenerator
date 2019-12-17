@@ -1,179 +1,140 @@
-var passwordLength = prompt("choose the length of your password between 8 and 128");
 var min = 8;
 var max = 128;
-if(passwordLength<min || passwordLength>max)
+var specialC = document.querySelector("#customCheck1");
+var numberC = document.querySelector("#customCheck2");
+var lowerCaseC = document.querySelector("#customCheck3");
+var capitalC = document.querySelector("#customCheck4");
+var chartTypeCount = 0; //Keeping account of character type being used
+var scale = 2;//The least number each charater can have
+var password = "";
+var special = "";
+var capital = "";
+var number = "";
+var lowerCase = "";
+var specialS;
+var numberS;
+var lowerCaseS;
+var capitalS;
+//Slider values and display starts here
+//This function generates  password substrings randomly per charater type
+var myPassWordPrint = document.querySelector("#passWord");
+var slider = document.querySelector("#customRange2");
+var output = document.querySelector("#sliderValue");
+var generatePass = document.querySelector("#myButton");
+output.innerHTML = slider.value;
+var passwordLength = slider.value;
+slider.oninput = function() 
 {
-   alert("You must select a number between 8 and 128: Refresh the page and try again");
+   output.innerHTML = this.value;
+   passwordLength = this.value;
 }
-else
+//Slider values and display ends here
+specialC.oninput = function()
 {
-   var password = "";
-   //var chartTypes = confirm("choose your character type: s, n, l, or c");
-   //var chartType = ["s", "n", "l", "c"];
-   var s = "";
-   var c = "";
-   var n = "";
-   var l = "";
-   //var specialC;
-   var specialS;
-   //var numberC;
-   var numberS;
-   //var lowerCaseC;
-   var lowerCaseS;
-   //var capitalC;
-   var capitalS;
-   //for(i= 0; i<chartType.length; i++){}
-      var specialC= confirm("Do you want your password to contain a special character?");
-      var numberC = confirm("Do you want your password to contain number character?");
-      var lowerCaseC =confirm("Do you want your password to contain lower case character?");
-      var capitalC = confirm("Do you want your password to contain capital character?");
-      var chartTypeCount = 0;
-      var scale = 2;
-      console.log(specialC);
-      console.log(numberC);
-      console.log(lowerCaseC);
-      console.log(capitalC);
-
-      if(specialC === false  && numberC === false && lowerCaseC === false && capitalC === false)
+   specialC.checked = true; 
+   //console.log(" special = " + specialC); 
+   return specialC;
+}
+//Generate password button and functions
+generatePass.onclick = function()
+{
+   if (passwordLength<min || passwordLength>max)
    {
-      alert("You must select at least one character type");
-      
+      alert("You must select a number between 8 and 128: Refresh the page and try again");
    }
-   if (capitalC == true)
-   {
-      if ( specialC == false  && numberC == false && lowerCaseC == false)
+   else if (specialC.checked == false  && numberC.checked == false && 
+      lowerCaseC.checked == false && capitalC.checked == false)
       {
-         capitalS = passwordLength;
+         alert("You must select at least one character type");  
       }
-      else
+   else
+   {     
+      if (capitalC.checked === true)
       {
-         capitalS = scale;
-         //passwordLength = passwordLength-capitalS;
-         console.log("Password lenght after captal = " + passwordLength);
-         chartTypeCount+= scale;
-         console.log("Character count = " + chartTypeCount);
-      }   
-         capitalC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      c = generate(capitalC, capitalS);
-      console.log(" c is = " + c);
-   }
-         //alert ("after capital " + passwordLength);
-      
-      if(specialC===true)
-      {
-         if (capitalC === false  && numberC === false && lowerCaseC === false)
-         {
-            specialS = passwordLength
-         }
-         else if (numberC == false && lowerCaseC == false)
-         //(capitalC === false  && (numberC === true || lowerCaseC === true))
-         {
-            //specialS = scale; 
-            //console.log("Password length before special = " + passwordLength);
-         // console.log("Character count before special = " + chartTypeCount);
-            specialS = passwordLength - chartTypeCount;
-            //console.log("Size of special = " + specialS);
-            //passwordLength = passwordLength-specialS;
-            //chartTypeCount = chartTypeCount + scale;
-         }
-
-         else //if (capitalC === true  && (numberC === false && lowerCaseC === false))
-         {
-            specialS = scale; 
-            //specialS = passwordLength - chartTypeCount;
-            chartTypeCount = chartTypeCount + scale;
-            //specialS = passwordLength - chartTypeCount;
-         }
-         //passwordLength = passwordLength-specialS;
-         
-
-         specialC = "\\\"\!\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\]\^\_\`\{\|\}\~";
-         s = generate(specialC, specialS);
-         console.log("s is = " + s);
-         //alert ("after special " + passwordLength);
-      }
-      
-      if (numberC == true)
-      {
-         if (capitalC === false  && specialC === false && lowerCaseC === false)
-         {
-            numberS = passwordLength;
-         }
-         else if (lowerCaseC === false)//  && (capitalC === true || specialC === true))
-         {   
-            numberS = passwordLength - chartTypeCount;
-         }
-         else
-         {
-            numberS = scale;
-            chartTypeCount = chartTypeCount + scale;
-         }
-         
-         //passwordLength = passwordLength-numberS;
-      // passwordLength = passwordLength-3;
-         numberC = "0123456789";
-         n = generate(numberC, numberS);
-         console.log("n is = " + n);
-         //console.log("numbeC has " + numberC.length);
-         //alert ("after number " + passwordLength);
-      }
-      
-      if (lowerCaseC == true)
-      {
-         if (capitalC === false  && specialC === false && numberC === false)
-         {
-            lowerCaseS = passwordLength;
-         }
-         else
-         {
-            lowerCaseS = passwordLength-chartTypeCount;
-         }
-         //passwordLength= passwordLength - lowerCaseS;
-         lowerCaseC = "abcdefghijklmnopqrstuvwxyz";
-         l = generate(lowerCaseC, lowerCaseS);
-         console.log("l is = " + l);
-      }
-      
-      alert("Your pasword is " + c+l+n+s);
-      
-   var str = "";
-
-   function generate (myString, aNumber)
-   {
-      str = "";
-      //Math.floor(Math.random() * myString.length);
-      for (i = 0; i<aNumber; i++)
-      {
-         var rNumber = Math.floor(Math.random() * myString.length);
-         str = str + myString[rNumber];
-
-      }
-      return str;
-   }
-
-
-   /*function chartSize()
-   {
-      if (capitalC == true)
-      {
-         if ( specialC === false  && numberC === false && lowerCaseC === false)
+         if ( specialC.checked === false  && numberC.checked === false && lowerCaseC.checked === false)
          {
             capitalS = passwordLength;
          }
-         else if ( (numberC === false && lowerCaseC === false) || 
-                  (specialC === false  && numberC === false) ||
-                  (specialC === false  && lowerCaseC === false)
-                  )
+         else
          {
-            capitalS = passwordLength/2
-         }
-         else 
+            capitalS = scale;
+            chartTypeCount+= scale;
+         }   
+            capitalC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+         capital = generate(capitalC, capitalS);
+      }  
+         if(specialC.checked===true)
          {
-            capitalS = 2;
+            if (capitalC.checked === false  && numberC.checked === false && lowerCaseC.checked === false)
+            {
+               specialS = passwordLength
+            }
+            else if (numberC.checked == false && lowerCaseC.checked == false)
+            {
+               specialS = passwordLength - chartTypeCount;
+            }
+            else 
+            {
+               specialS = scale; 
+               chartTypeCount = chartTypeCount + scale;
+            }
+            specialC = "\\\"\!\#\$\%\&\'\(\)\*\+\,\-\.\/\:\;\<\=\>\?\@\[\]\^\_\`\{\|\}\~";
+            special = generate(specialC, specialS);
+         }       
+         if (numberC.checked == true)
+         {
+            if (capitalC.checked === false  && specialC.checked === false && lowerCaseC.checked === false)
+            {
+               numberS = passwordLength;
+            }
+            else if (lowerCaseC.checked === false)
+            {   
+               numberS = passwordLength - chartTypeCount;
+            }
+            else
+            {
+               numberS = scale;
+               chartTypeCount = chartTypeCount + scale;
+            }
+            numberC = "0123456789";
+            number = generate(numberC, numberS);
          }
-      }
-
-   }*/
-   //console.log("n is = " + n);
+         
+         if (lowerCaseC.checked == true)
+         {
+            if (capitalC.checked === false  && specialC.checked === false && numberC.checked === false)
+            {
+               lowerCaseS = passwordLength;
+            }
+            else
+            {
+               lowerCaseS = passwordLength-chartTypeCount;
+            }
+            lowerCaseC = "abcdefghijklmnopqrstuvwxyz";
+            lowerCase = generate(lowerCaseC, lowerCaseS);
+         }
+         myPassWordPrint.innerHTML = capital+lowerCase+number+special;
+         //alert("Your pasword is " + capital+lowerCase+number+special);
+         var str = "";
+         function generate (myString, aNumber)
+         {
+            str = "";
+            for (i = 0; i<aNumber; i++)
+            {
+               var rNumber = Math.floor(Math.random() * myString.length);
+               str = str + myString[rNumber];
+            }
+         return str;
+      }   
+   }
 }
-
+//Copy to clipboar function
+var textArea = document.querySelector("#passWord");
+textArea = myPassWordPrint;
+var copyPassWord = document.querySelector("#copyPass");
+copyPassWord.onclick = function()
+{
+   textArea = myPassWordPrint;
+   document.execCommand("copy");
+   alert("You copied: " + myPassWordPrint.textContent);
+}
